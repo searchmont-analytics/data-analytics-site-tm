@@ -200,19 +200,21 @@
     });
     var path = function (key) { return res.map(function (r, n) { return (n ? 'L' : 'M') + X(n).toFixed(1) + ' ' + Y(r[key]).toFixed(1); }).join(''); };
     g += '<path d="' + path('exp') + '" fill="none" stroke="' + c('--muted') + '" stroke-width="1.5" stroke-dasharray="4 4"/>';
-    g += '<path d="' + path('x') + '" fill="none" stroke="' + c('--s1') + '" stroke-width="2" stroke-linejoin="round"/>';
+    g += '<path class="ln" d="' + path('x') + '" fill="none" stroke="' + c('--s1') + '" stroke-width="2" stroke-linejoin="round"/>';
     var alerts = 0, falses = 0, caught = 0, total = 0;
     res.forEach(function (r, n) {
       var flag = Math.abs(r.score) > lab.k, real = !!ANOM[r.i], x = X(n), y = Y(r.x);
       r.flag = flag; if (real) total++;
       if (flag) { alerts++; if (real) caught++; else falses++; }
-      if (flag && real) g += '<circle cx="' + x + '" cy="' + y + '" r="6" fill="' + c('--good') + '" stroke="' + c('--surface') + '" stroke-width="2"/>';
-      else if (flag) g += '<circle cx="' + x + '" cy="' + y + '" r="5.5" fill="' + c('--surface') + '" stroke="' + c('--warning') + '" stroke-width="2"/>';
-      else if (real) g += '<rect x="' + (x - 5) + '" y="' + (y - 5) + '" width="10" height="10" transform="rotate(45 ' + x + ' ' + y + ')" fill="' + c('--critical') + '" stroke="' + c('--surface') + '" stroke-width="2"/>';
+      if (flag && real) g += '<circle class="mk" cx="' + x + '" cy="' + y + '" r="6" fill="' + c('--good') + '" stroke="' + c('--surface') + '" stroke-width="2"/>';
+      else if (flag) g += '<circle class="mk" cx="' + x + '" cy="' + y + '" r="5.5" fill="' + c('--surface') + '" stroke="' + c('--warning') + '" stroke-width="2"/>';
+      else if (real) g += '<rect class="mkd" x="' + (x - 5) + '" y="' + (y - 5) + '" width="10" height="10" transform="rotate(45 ' + x + ' ' + y + ')" fill="' + c('--critical') + '" stroke="' + c('--surface') + '" stroke-width="2"/>';
     });
     g += '<line id="xh" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="' + c('--axis') + '" visibility="hidden"/>';
     g += '<rect id="hit" x="' + m.l + '" y="0" width="' + (W - m.l - m.r) + '" height="' + H + '" fill="transparent"/>';
     box.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '">' + g + '</svg>';
+    var ln = $('.ln', box);
+    if (ln && box.classList.contains('draw')) { var len = ln.getTotalLength(); ln.style.strokeDasharray = len; ln.style.strokeDashoffset = len; }
     var hit = $('#hit', box), xh = $('#xh', box);
     hit.addEventListener('pointermove', function (e) {
       var b = box.getBoundingClientRect();
@@ -386,6 +388,12 @@
   var once = new IntersectionObserver(function (es) {
     es.forEach(function (en) {
       if (!en.isIntersecting) return; once.unobserve(en.target);
+      if (en.target.id === 'labChart') {
+        var box = en.target; box.classList.add('seen');
+        if (!reduced) { box.classList.add('draw'); drawLab(); setTimeout(function () { box.classList.remove('draw'); drawLab(); }, 2700); }
+        return;
+      }
+      if (en.target.id === 'timeline') { en.target.classList.add('in'); return; }
       if (en.target.id === 'ratingBars') { lidarShown = true; updateLidar(); return; }
       var el = en.target, end = +el.dataset.count; if (reduced) return;
       var t0 = performance.now(); setTimeout(function () { el.textContent = end; }, 1300);
@@ -393,5 +401,23 @@
     });
   }, { threshold: 0.3 });
   $$('[data-count]').forEach(function (el) { once.observe(el); });
-  once.observe($('#ratingBars'));
+  once.observe($('#ratingBars')); once.observe($('#labChart')); once.observe($('#timeline'));
+  $$('.tl-seg').forEach(function (el) { el.style.setProperty('--r', el.dataset.r); el.style.setProperty('--s', el.dataset.s); });
+
+  /* ---------- motion: scroll reveal and cursor glow ---------- */
+  if (!reduced) {
+    var rv = new IntersectionObserver(function (es) {
+      es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); rv.unobserve(en.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+    $$('main section:not(.hero) .sec-head, main section:not(.hero) .card, .panel, .more, #skills .filters').forEach(function (el) {
+      var sibs = Array.prototype.filter.call(el.parentNode.children, function (c) { return c.matches('.card, .panel'); });
+      el.style.setProperty('--d', (Math.max(0, sibs.indexOf(el)) % 6) * 0.07 + 's');
+      el.classList.add('rv'); rv.observe(el);
+    });
+    document.addEventListener('pointermove', function (e) {
+      var t = e.target.closest && e.target.closest('.tile, .work, .panel, .stat'); if (!t) return;
+      var r = t.getBoundingClientRect();
+      t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }, { passive: true });
+  }
 })();
