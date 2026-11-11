@@ -71,9 +71,10 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 .embed body { padding: 0; }
-.embed .top { display: none; }
+.embed header.top { display: none; }
 .embed .wrap { max-width: none; }
-.stage.idle .scene.on .a { animation: none; }
+/* Not playing when a scene is opened: show it finished, not frozen at its first frame. */
+.stage.idle .scene.on .a, .stage.idle .scene.on .chip, .stage.idle .scene.on .ic .k-check { animation: none; }
 body {
   background: var(--bg); color: var(--ink);
   font-family: var(--body); font-size: 16px; line-height: 1.55;
@@ -82,7 +83,7 @@ body {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 .wrap { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
-.top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+header.top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .top h1 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0; }
 .top p { margin: 0; color: var(--muted); font-size: 13px; }
 
@@ -467,7 +468,7 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var embedded = document.documentElement.classList.contains('embed');
-  var idle = embedded; // embedded: wait for the visitor to press Play
+  var idle = embedded; // true while a scene is shown at rest (embedded pages wait for Play)
   var i = 0, t = 0, playing = !reduced && !embedded, ended = false, last = null;
   var TOTAL = 30000, COLS = 300, ROWS = 100;
   var drawnKey = '';
@@ -506,7 +507,7 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   function show(k) {
     i = Math.max(0, Math.min(scenes.length - 1, k));
     t = 0; ended = false;
-    if (i > 0) idle = false;
+    idle = !playing;
     scenes.forEach(function (s, n) {
       s.classList.remove('on');
       s.setAttribute('aria-hidden', n === i ? 'false' : 'true');
@@ -525,7 +526,7 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   }
 
   function countProgress() {
-    if (reduced) return 1;
+    if (reduced || idle) return 1;
     if (scenes[i].id !== 's-count') return 1;
     return Math.max(0, Math.min(1, (t - 1) / 4));
   }
@@ -578,7 +579,7 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   }
 
   function toggle() {
-    if (idle) { idle = false; playing = true; show(0); return; }
+    if (idle) { playing = true; show(i); return; }
     if (ended) { playing = true; show(0); return; }
     playing = !playing; sync();
   }
