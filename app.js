@@ -46,14 +46,14 @@
   var EV = {
     hub: ['OLG', 'Put data quality into the critical path of the Customer Hub (Siebel) master data project: automated corrections, grey-area records isolated for steward review, and ongoing monitoring.'],
     golden: ['OLG', 'Brought Informatica Data Quality into operation for address validation and golden-record processing, spanning reference and master data management.'],
-    tier1: ['OLG', 'Curated Tier 1 rules on customer tombstone data, the top layer of a three-layer control model.'],
+    tier1: ['OLG', 'Curated Tier 1 rules on customer tombstone data, the top tier of a three-tier coverage model.'],
     okr: ['OLG', 'Built the data quality coverage report for the customer insights OKR, showing coverage of priority applications across business branches.'],
     watsonx: ['OLG', 'Led the migration of governance content and data quality rules from on-premises IBM InfoSphere to SaaS IBM watsonx.data intelligence, with a parallel test environment of synthetic data.'],
     framework: ['OLG', 'Designed and built a config-driven (YAML) Python framework on Cloudera AI that kept critical data element checks running while the primary data quality tool was unavailable.'],
     infosphere: ['OLG', 'Retired Informatica Data Quality and moved data quality and metadata to IBM InfoSphere as OLG consolidated its warehouses into a Cloudera data lake, resolving HDFS, Parquet and Hive integration problems.'],
     envs: ['OLG', 'Led a development, test and staging environment model for the Customer Hub project and kept testing moving through two major vendor transitions.'],
     strategy: ['OLG', 'Authored the enterprise data quality strategy: a 14-section framework covering standards, controls, monitoring, issue management, tooling, regulatory alignment and a maturity roadmap.'],
-    model: ['OLG', 'Architected a three-layer control model: curated Tier 1 rules, automated completeness for all critical data elements, and data observability across all of them.'],
+    model: ['OLG', 'Architected a three-tier coverage model: Tier 1 curated rules, Tier 2 automated completeness for all critical data elements, and Tier 3 data observability across all of them.'],
     roadmap: ['OLG', 'Led the strategy for data observability, AI-assisted governance and the governance technology roadmap.'],
     defect: ['OLG', 'On my own initiative, led an upgrade of the defect management platform for all testing teams, which let OLG retire a second vendor\'s tool and its costs.'],
     budget: ['Community', 'Led development of the Local Services Board budget for fire protection, recreation and emergency telecommunications, and managed a $70,000–$90,000 fire department operating budget.'],
@@ -128,18 +128,23 @@
   segmented($('#roleSeg'), 'role', setRole);
   setRole(role);
 
-  /* ---------- control model ---------- */
-  var LAYERS = [
-    'Hand-written rules on the customer records that matter most, such as tombstone data, reviewed with data stewards. The most judgment, on the smallest footprint.',
-    'Completeness checks generated automatically for every critical data element, so coverage does not depend on someone finding time to write a rule.',
-    'Volume and drift monitoring across all critical data elements: z-score detection against a 30-day rolling baseline, plus a model for weekend and holiday patterns.'
-  ];
-  function setLayer(i) {
-    $$('#layers .layer').forEach(function (b) { b.classList.toggle('is-on', +b.dataset.layer === i); b.setAttribute('aria-pressed', +b.dataset.layer === i); });
-    $('#layerNote').textContent = LAYERS[i];
-  }
-  $('#layers').addEventListener('click', function (e) { var b = e.target.closest('.layer'); if (b) setLayer(+b.dataset.layer); });
-  setLayer(0);
+  /* ---------- coverage model (embedded explainer) ---------- */
+  (function () {
+    var frame = $('#tierFrame'); if (!frame) return;
+    function fit() {
+      try {
+        var wrap = frame.contentDocument && frame.contentDocument.querySelector('.wrap');
+        if (wrap && wrap.offsetHeight) frame.style.height = wrap.offsetHeight + 'px';
+      } catch (e) {}
+    }
+    function watch() {
+      fit();
+      try { new ResizeObserver(fit).observe(frame.contentDocument.querySelector('.wrap')); } catch (e) {}
+    }
+    frame.addEventListener('load', watch);
+    try { if (frame.contentDocument && frame.contentDocument.readyState === 'complete') watch(); } catch (e) {}
+    window.addEventListener('resize', fit);
+  })();
 
   /* ---------- observability lab (simulated) ---------- */
   var N = 119, WARM = 35, START = Date.UTC(2026, 4, 4); // Monday 4 May 2026

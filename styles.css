@@ -135,17 +135,11 @@ section { padding: 64px 0 8px; display: grid; gap: 20px; }
 .ev p { font-size: 14.5px; }
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
 
-/* ---------- control model ---------- */
+/* ---------- coverage model ---------- */
 .model { display: grid; gap: 16px; }
 .model-head { display: grid; gap: 6px; }
 .model-head p { color: var(--ink-2); font-size: 14.5px; max-width: 72ch; }
-.layers { display: grid; gap: 6px; justify-items: center; }
-.layer { border: 1px solid var(--border); background: var(--surface-2); border-radius: 10px; padding: 12px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; text-align: left; }
-.layer b { font-size: 15px; } .layer span { color: var(--ink-2); font-size: 14px; }
-.layer.l1 { width: 55%; } .layer.l2 { width: 78%; } .layer.l3 { width: 100%; }
-.layer:hover { background: var(--raise); }
-.layer.is-on { background: var(--accent-wash); border-color: var(--accent); }
-.layer-note { color: var(--ink-2); font-size: 14.5px; min-height: 3.2em; max-width: 80ch; }
+.tier-frame { display: block; width: 100%; height: 600px; border: 0; background: transparent; }
 
 /* ---------- charts ---------- */
 .filters { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
@@ -360,8 +354,6 @@ span[data-lens-text]:not([hidden]) { animation: fadein .5s; }
 .fit-list button:hover .n { transform: scale(1.08); color: var(--accent-ink); }
 .ev li { transition: transform .2s, border-color .2s; }
 .ev li:hover { transform: translateX(4px); border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); }
-.layer { transition: transform .2s cubic-bezier(.2,.7,.2,1), background .2s, border-color .2s; }
-.layer:hover { transform: translateY(-2px) scale(1.012); }
 .steps button { transition: transform .2s, background .2s, border-color .2s; }
 .steps button:hover { transform: translateY(-3px); }
 .step-panel > * { animation: rise .35s both; }
@@ -415,7 +407,6 @@ span[data-lens-text]:not([hidden]) { animation: fadein .5s; }
   .g3 { grid-template-columns: 1fr; }
   .lens-label, .icon-btn span { display: none; }
   .seg button { padding: 7px 9px; font-size: 12.5px; }
-  .layer.l1 { width: 80%; } .layer.l2 { width: 90%; }
   .stat b { font-size: 22px; }
   .tl-row { grid-template-columns: 1fr; gap: 3px; }
   .tl-axis-row .name { display: none; }
