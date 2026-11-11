@@ -1,5 +1,24 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Why Three Tiers</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A two-minute animated explainer of the three-tier data quality coverage model.">
+<script>
+  // When shown inside the portfolio page, take that page's look and theme.
+  (function () {
+    var root = document.documentElement;
+    if (window.self === window.top) return;
+    root.classList.add('embed');
+    try {
+      var host = window.parent.document.documentElement;
+      var sync = function () { root.dataset.theme = host.dataset.theme === 'light' ? 'light' : 'dark'; };
+      sync();
+      new MutationObserver(sync).observe(host, { attributes: true, attributeFilter: ['data-theme'] });
+    } catch (e) { root.dataset.theme = 'dark'; }
+  })();
+</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
 <style>
 /* Layout: one centred stage that plays nine short scenes in place, with a segmented timeline and transport controls underneath. */
@@ -30,7 +49,31 @@
   --good: #5fd0a8; --good-soft: #133229;
   color-scheme: dark;
 }
+/* Embedded in the portfolio page: use its palette and system type. */
+:root.embed {
+  --bg: #1a1a19; --surface: #232321; --raised: #2a2a28;
+  --ink: #f0efec; --muted: #c3c2b7; --line: #3d3d3a;
+  --accent: #86b6ef; --accent-soft: rgba(57, 135, 229, .16);
+  --warn: #ec835a; --warn-soft: #7a3f28; --warn-bg: rgba(217, 89, 38, .16);
+  --good: #3cc391; --good-soft: rgba(25, 158, 112, .16);
+  --display: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: dark;
+}
+:root.embed[data-theme="light"] {
+  --bg: #fcfcfb; --surface: #f0efec; --raised: #fcfcfb;
+  --ink: #0b0b0b; --muted: #52514e; --line: #c3c2b7;
+  --accent: #1c5cab; --accent-soft: rgba(42, 120, 214, .12);
+  --warn: #b4541a; --warn-soft: #e9bd9d; --warn-bg: #fbeee4;
+  --good: #19775a; --good-soft: #dff1ea;
+  color-scheme: light;
+}
 * { box-sizing: border-box; }
+html, body { margin: 0; }
+.embed body { padding: 0; }
+.embed .top { display: none; }
+.embed .wrap { max-width: none; }
+.stage.idle .scene.on .a { animation: none; }
 body {
   background: var(--bg); color: var(--ink);
   font-family: var(--body); font-size: 16px; line-height: 1.55;
@@ -232,6 +275,8 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   .scene.on .ic * { animation: none !important; }
 }
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header class="top">
@@ -421,7 +466,9 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   var canvas = document.getElementById('dots');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var i = 0, t = 0, playing = !reduced, ended = false, last = null;
+  var embedded = document.documentElement.classList.contains('embed');
+  var idle = embedded; // embedded: wait for the visitor to press Play
+  var i = 0, t = 0, playing = !reduced && !embedded, ended = false, last = null;
   var TOTAL = 30000, COLS = 300, ROWS = 100;
   var drawnKey = '';
 
@@ -459,6 +506,7 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   function show(k) {
     i = Math.max(0, Math.min(scenes.length - 1, k));
     t = 0; ended = false;
+    if (i > 0) idle = false;
     scenes.forEach(function (s, n) {
       s.classList.remove('on');
       s.setAttribute('aria-hidden', n === i ? 'false' : 'true');
@@ -471,6 +519,7 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   }
 
   function sync() {
+    stage.classList.toggle('idle', idle);
     stage.classList.toggle('paused', !playing);
     playBtn.textContent = ended ? 'Replay' : (playing ? 'Pause' : 'Play');
   }
@@ -529,6 +578,7 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   }
 
   function toggle() {
+    if (idle) { idle = false; playing = true; show(0); return; }
     if (ended) { playing = true; show(0); return; }
     playing = !playing; sync();
   }
@@ -546,3 +596,5 @@ canvas#dots { display: block; width: 100%; border-radius: 8px; background: var(-
   requestAnimationFrame(frame);
 })();
 </script>
+</body>
+</html>
