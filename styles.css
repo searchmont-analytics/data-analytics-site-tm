@@ -412,6 +412,18 @@ span[data-lens-text]:not([hidden]) { animation: fadein .5s; }
 .fs-part svg { width: 40px; height: 40px; padding: 8px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); fill: none; stroke: var(--c); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .fs-part b { display: block; font-size: 18px; color: var(--ink); line-height: 1.3; }
 .fs-part span { font-size: 13px; color: var(--ink-2); line-height: 1.4; display: block; }
+.fs-total { background-repeat: no-repeat; }
+.fs-total:hover { background-image: radial-gradient(280px circle at var(--mx, 50%) var(--my, 0%), var(--accent-wash), transparent 70%); }
+.fs-total-bar { height: 14px; cursor: default; }
+.fs-total-bar i { transition: opacity .2s, filter .2s; }
+.fs-total-bar i.hot { filter: brightness(1.2) saturate(1.15); }
+.fs-total.has-hot .fs-total-bar i:not(.hot) { opacity: .35; }
+.fs-part { cursor: default; border-radius: 10px; transition: transform .2s; }
+.fs-part.hot { transform: translateX(4px); }
+.fs-part svg { transition: border-color .2s, transform .25s cubic-bezier(.2,.9,.3,1.4); }
+.fs-part.hot svg { border-color: var(--c); transform: scale(1.08); }
+.fs-part b { transition: color .2s; }
+.fs-part.hot b { color: var(--accent-ink); }
 .fs-total.in .fs-total-bar { transform-origin: left; animation: growx 1.1s cubic-bezier(.2,.7,.2,1) backwards; }
 .fs-total.in .fs-part { animation: rise2 .55s cubic-bezier(.2,.7,.2,1) backwards; animation-delay: calc(.5s + var(--n) * .14s); }
 .fs-total.in .fs-part svg { animation: pop .5s backwards; animation-delay: calc(.7s + var(--n) * .14s); }

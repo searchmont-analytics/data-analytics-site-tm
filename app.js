@@ -438,6 +438,26 @@
       });
     }, { threshold: 0.4 }).observe(fsT);
   }
+  if (fsT) {
+    var FSG = [
+      ['Homes and cottages', '$36.4M · 365 properties · 73% of assessed value'],
+      ['Vacant land', '$9.6M · 313 parcels · 19% of assessed value'],
+      ['Ski resort', '$2.9M · 3 parcels · 6% of assessed value'],
+      ['Commercial, community and other', '$1.0M · 30 properties · 2% of assessed value']
+    ];
+    var fsSegs = $$('.fs-total-bar i', fsT), fsParts = $$('.fs-part', fsT);
+    var fsHot = function (g) {
+      fsT.classList.toggle('has-hot', g >= 0);
+      fsSegs.forEach(function (el, i) { el.classList.toggle('hot', i === g); });
+      fsParts.forEach(function (el, i) { el.classList.toggle('hot', i === g); });
+    };
+    [fsSegs, fsParts].forEach(function (list) {
+      list.forEach(function (el, g) {
+        el.onpointermove = function (e) { fsHot(g); showTip('<b>' + FSG[g][0] + '</b><span>' + FSG[g][1] + '</span>', e.clientX, e.clientY); };
+        el.onpointerleave = function () { fsHot(-1); hideTip(); };
+      });
+    });
+  }
 
   /* ---------- motion: scroll reveal and cursor glow ---------- */
   if (!reduced) {
@@ -450,7 +470,7 @@
       el.classList.add('rv'); rv.observe(el);
     });
     document.addEventListener('pointermove', function (e) {
-      var t = e.target.closest && e.target.closest('.tile, .work, .panel, .stat'); if (!t) return;
+      var t = e.target.closest && e.target.closest('.tile, .work, .panel, .stat, .fs-total'); if (!t) return;
       var r = t.getBoundingClientRect();
       t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px');
     }, { passive: true });
