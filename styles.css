@@ -376,6 +376,93 @@ span[data-lens-text]:not([hidden]) { animation: fadein .5s; }
 .list.links a { display: inline-block; transition: transform .18s; }
 .list.links a:hover { transform: translateX(4px); }
 
+/* ---------- FireSmart banner ---------- */
+.fs-banner { --fs-tree: #199e70; --fs-char: #5c5b57; --fs-flame: #fab219; --fs-fire: #d95926; --fs-hit: #6a2b28; display: grid; gap: 14px; }
+:root[data-theme="light"] .fs-banner { --fs-tree: #1baf7a; --fs-char: #a3a29b; --fs-fire: #eb6834; --fs-hit: #eeb5ae; }
+.fs-why { display: flex; gap: 16px; align-items: start; justify-content: space-between; }
+.fs-why p { color: var(--ink-2); font-size: 15px; max-width: 86ch; }
+.fs-why b { color: var(--ink); }
+.fs-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.fs-panel { background: var(--surface-2); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.fs-panel figcaption { display: grid; gap: 2px; }
+.fs-panel figcaption b { font-size: 15px; }
+.fs-panel figcaption span { font-size: 13px; color: var(--ink-2); }
+.fs-panel svg { display: block; width: 100%; height: auto; }
+.fs-verdict { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+.fs-verdict::before { content: ""; width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.fs-bad .fs-verdict::before { background: var(--critical); }
+.fs-ok .fs-verdict::before { background: var(--good); }
+.fs-key { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 20px; font-size: 13px; color: var(--ink-2); }
+.fs-key b { display: block; font: 500 11px var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--accent-ink); }
+
+.fs-use { display: grid; gap: 12px; border-top: 1px solid var(--border); padding-top: 18px; }
+.fs-use h4 { margin: 0; font-size: 17px; font-weight: 600; }
+.fs-use p { color: var(--ink-2); font-size: 15px; max-width: 86ch; }
+.fs-use p b { color: var(--ink); }
+.fs-use ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.fs-use li { background: var(--surface-2); border-radius: 12px; padding: 14px 16px; font-size: 14px; color: var(--ink-2); }
+.fs-use li b { display: block; color: var(--ink); font-size: 15px; margin-bottom: 4px; }
+.fs-total { background: var(--surface-2); border-radius: 12px; padding: 20px 22px; display: grid; gap: 16px; }
+.fs-total-v { font-size: clamp(36px, 5vw, 54px); font-weight: 650; letter-spacing: -.02em; line-height: 1.15; font-variant-numeric: tabular-nums; margin-top: 2px; }
+.fs-total-sub { font-size: 14px; color: var(--ink-2); }
+.fs-total-bar { display: flex; gap: 2px; height: 12px; border-radius: 6px; overflow: hidden; }
+.fs-total-bar i { flex: var(--w) 1 0; min-width: 5px; background: var(--c); }
+.fs-total-parts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.fs-part { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: center; }
+.fs-part svg { width: 40px; height: 40px; padding: 8px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); fill: none; stroke: var(--c); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.fs-part b { display: block; font-size: 18px; color: var(--ink); line-height: 1.3; }
+.fs-part span { font-size: 13px; color: var(--ink-2); line-height: 1.4; display: block; }
+.fs-total.in .fs-total-bar { transform-origin: left; animation: growx 1.1s cubic-bezier(.2,.7,.2,1) backwards; }
+.fs-total.in .fs-part { animation: rise2 .55s cubic-bezier(.2,.7,.2,1) backwards; animation-delay: calc(.5s + var(--n) * .14s); }
+.fs-total.in .fs-part svg { animation: pop .5s backwards; animation-delay: calc(.7s + var(--n) * .14s); }
+@media (max-width: 900px) { .fs-use ul { grid-template-columns: 1fr; } .fs-total-parts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .fs-total-parts { grid-template-columns: 1fr; } }
+
+.fs-ring { fill: none; stroke: var(--accent-ink); stroke-width: 1.5; }
+.fs-ring.r30 { stroke-opacity: .55; }
+.fs-ring.r10 { fill: var(--accent-wash); stroke-opacity: .8; }
+.fs-ring.r1 { stroke: var(--warning); }
+.fs-lbl { font: 500 14px var(--mono); fill: var(--muted); }
+.fs-can { fill: var(--fs-tree); }
+.fs-trunk { fill: rgba(0,0,0,.35); }
+.fs-glow, .fs-hglow { fill: url(#fsGlow); opacity: 0; transform-box: fill-box; transform-origin: center; }
+.fs-tree.wild .fs-can { fill: var(--fs-fire); }
+.fs-tree.wild .fs-glow { opacity: .85; }
+.fs-tree.burn .fs-can { fill: var(--fs-char); }
+.fs-ember { fill: var(--warning); opacity: 0; }
+.fs-hbody { fill: var(--raise); stroke: var(--ink-2); stroke-width: 2; }
+.fs-roof { fill: none; stroke: var(--ink-2); stroke-width: 1.5; stroke-opacity: .7; }
+.fs-bad .fs-hbody { fill: var(--fs-hit); stroke: var(--critical); stroke-width: 3; }
+.fs-bad .fs-hglow { opacity: .9; }
+.fs-ok .fs-hbody { stroke: var(--good); stroke-width: 3; }
+
+/* the loop: base styles above are the final frame, .run (added by app.js) plays up to it */
+@keyframes fsClock { from { opacity: 1; } to { opacity: 1; } }
+@keyframes fsDraw { from { stroke-dashoffset: 1; } }
+@keyframes fsEmber { 0% { opacity: 0; transform: translate(0, 0); } 12%, 85% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)); } }
+@keyframes fsBurn { 0% { fill: var(--fs-tree); } 12% { fill: var(--fs-flame); } 55% { fill: var(--fs-fire); } 100% { fill: var(--fs-char); } }
+@keyframes fsFlame { 0% { opacity: 0; transform: scale(.4); } 12% { opacity: 1; transform: scale(1); } 30% { opacity: .7; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.05); } 72% { opacity: .65; transform: scale(.92); } 100% { opacity: 0; transform: scale(.8); } }
+@keyframes fsFlicker { from { opacity: .55; transform: scale(.92); } to { opacity: 1; transform: scale(1.06); } }
+@keyframes fsHit { from { fill: var(--raise); stroke: var(--ink-2); stroke-width: 2; } }
+@keyframes fsSafe { from { stroke: var(--ink-2); stroke-width: 2; } }
+.fs-banner.run { animation: fsClock 13s linear; }
+.fs-banner.run .fs-ring { stroke-dasharray: 1; animation: fsDraw 1.1s ease-out both; }
+.fs-banner.run .fs-ring.r10 { animation-delay: .35s; }
+.fs-banner.run .fs-ring.r30 { animation-delay: .7s; }
+.fs-banner.run .fs-lbl { animation: fadein .5s 1.4s both; }
+.fs-banner.run .fs-tree.wild .fs-glow { animation: fsFlicker .9s ease-in-out infinite alternate; }
+.fs-banner.run .fs-tree.wild:nth-of-type(odd) .fs-glow { animation-duration: 1.2s; }
+.fs-banner.run .fs-ember { animation: fsEmber 1.5s ease-in var(--t) both; }
+.fs-banner.run .fs-tree.burn .fs-can { animation: fsBurn 5s linear var(--t) both; }
+.fs-banner.run .fs-tree.burn .fs-glow { animation: fsFlame 5s linear var(--t) both; }
+.fs-banner.run .fs-bad .fs-hbody { animation: fsHit .8s ease-out 7.6s both; }
+.fs-banner.run .fs-bad .fs-hglow { animation: fadein .8s 7.6s backwards, fsFlicker 1s ease-in-out 8.4s infinite alternate; }
+.fs-banner.run .fs-ok .fs-hbody { animation: fsSafe .8s ease-out 7.6s both; }
+.fs-banner.run .fs-verdict { animation: fadein .6s 8.2s both; }
+.fs-banner.paused, .fs-banner.paused *, .fs-banner.off, .fs-banner.off * { animation-play-state: paused !important; }
+@media (max-width: 900px) { .fs-panels { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .fs-key { grid-template-columns: 1fr; } .fs-panel { padding: 12px; } }
+
 /* ---------- responsive ---------- */
 @media (max-width: 1180px) {
   .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
