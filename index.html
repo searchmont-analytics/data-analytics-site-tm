@@ -205,6 +205,97 @@
           </div>
         </div>
 
+        <div class="fs-banner" id="fsBanner">
+          <div class="fs-why">
+            <p><b>Why it matters.</b> Most houses lost in a wildfire are not hit by the main wall of flame. They are lit by wind-blown embers, and by fire that travels through trees and brush close to the wall. FireSmart calls the 30 m around a house the Home Ignition Zone: what grows there largely decides whether fire reaches the house.</p>
+            <button type="button" class="icon-btn" id="fsToggle" aria-pressed="false" hidden>Pause</button>
+          </div>
+          <div class="fs-panels">
+            <figure class="fs-panel fs-bad">
+              <figcaption><b>Trees crowd the house</b><span>Canopy is continuous from the forest edge to the wall</span></figcaption>
+              <svg viewBox="0 -8 560 396" role="img" aria-label="Top-down view of a house with trees growing inside the 10 metre and 30 metre rings. Embers from a wildfire on the left light the outer trees, fire steps from tree to tree, and reaches the house wall.">
+                <defs>
+                  <radialGradient id="fsGlow"><stop offset="0" stop-color="#fab219" stop-opacity=".95"/><stop offset=".55" stop-color="#ec835a" stop-opacity=".5"/><stop offset="1" stop-color="#d03b3b" stop-opacity="0"/></radialGradient>
+                  <linearGradient id="fsFront" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#d95926" stop-opacity=".5"/><stop offset="1" stop-color="#d95926" stop-opacity="0"/></linearGradient>
+                </defs>
+                <rect class="fs-front" x="0" y="-8" width="130" height="396" fill="url(#fsFront)"/>
+                <rect class="fs-ring r30" x="118" y="17" width="364" height="346" rx="150" pathLength="1"/>
+                <rect class="fs-ring r10" x="218" y="117" width="164" height="146" rx="50" pathLength="1"/>
+                <rect class="fs-ring r1" x="260.5" y="159.5" width="79" height="61" rx="7.5" pathLength="1"/>
+                <text class="fs-lbl" x="300" y="9" text-anchor="middle">30 m</text>
+                <text class="fs-lbl" x="300" y="110" text-anchor="middle">10 m</text>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="38" cy="70" r="40"/><circle class="fs-can" cx="38" cy="70" r="22"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="84" cy="118" r="27"/><circle class="fs-can" cx="84" cy="118" r="14"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="66" cy="190" r="37"/><circle class="fs-can" cx="66" cy="190" r="20"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="34" cy="300" r="40"/><circle class="fs-can" cx="34" cy="300" r="22"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="400" cy="90" r="18"/><circle class="fs-trunk" cx="400" cy="90" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="440" cy="190" r="15"/><circle class="fs-trunk" cx="440" cy="190" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="430" cy="280" r="20"/><circle class="fs-trunk" cx="430" cy="280" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="300" cy="328" r="17"/><circle class="fs-trunk" cx="300" cy="328" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="222" cy="318" r="15"/><circle class="fs-trunk" cx="222" cy="318" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="350" cy="148" r="13"/><circle class="fs-trunk" cx="350" cy="148" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:3.4s"><circle class="fs-glow" cx="150" cy="200" r="42"/><circle class="fs-can" cx="150" cy="200" r="22"/><circle class="fs-trunk" cx="150" cy="200" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:4.1s"><circle class="fs-glow" cx="185" cy="140" r="38"/><circle class="fs-can" cx="185" cy="140" r="20"/><circle class="fs-trunk" cx="185" cy="140" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:4.7s"><circle class="fs-glow" cx="170" cy="262" r="34"/><circle class="fs-can" cx="170" cy="262" r="18"/><circle class="fs-trunk" cx="170" cy="262" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:5.3s"><circle class="fs-glow" cx="300" cy="60" r="38"/><circle class="fs-can" cx="300" cy="60" r="20"/><circle class="fs-trunk" cx="300" cy="60" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:5.8s"><circle class="fs-glow" cx="236" cy="180" r="32"/><circle class="fs-can" cx="236" cy="180" r="17"/><circle class="fs-trunk" cx="236" cy="180" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:6.6s"><circle class="fs-glow" cx="252" cy="214" r="22"/><circle class="fs-can" cx="252" cy="214" r="11"/><circle class="fs-trunk" cx="252" cy="214" r="2"/></g>
+                <g class="fs-house">
+                  <rect class="fs-hglow" x="238" y="137" width="124" height="106" rx="30"/>
+                  <rect class="fs-hbody" x="268" y="167" width="64" height="46" rx="2"/>
+                  <path class="fs-roof" d="M268 167L284 190L268 213M332 167L316 190L332 213M284 190H316"/>
+                </g>
+                <circle class="fs-ember" cx="66" cy="190" r="3" style="--t:2s;--dx:84px;--dy:10px"/>
+                <circle class="fs-ember" cx="84" cy="118" r="3" style="--t:2.7s;--dx:101px;--dy:22px"/>
+                <circle class="fs-ember" cx="34" cy="300" r="3" style="--t:3.3s;--dx:136px;--dy:-38px"/>
+                <circle class="fs-ember" cx="38" cy="70" r="3" style="--t:3.9s;--dx:262px;--dy:-10px"/>
+                <circle class="fs-ember" cx="150" cy="200" r="3" style="--t:4.4s;--dx:86px;--dy:-20px"/>
+                <circle class="fs-ember" cx="170" cy="262" r="3" style="--t:5.2s;--dx:82px;--dy:-48px"/>
+                <circle class="fs-ember" cx="236" cy="180" r="3" style="--t:6.3s;--dx:38px;--dy:4px"/>
+                <circle class="fs-ember" cx="252" cy="214" r="3" style="--t:6.8s;--dx:20px;--dy:-8px"/>
+              </svg>
+              <p class="fs-verdict">Fire reaches the wall. This house scores high.</p>
+            </figure>
+            <figure class="fs-panel fs-ok">
+              <figcaption><b>Space around the house</b><span>Thinned trees in Zone 2, clear ground in Zone 1</span></figcaption>
+              <svg viewBox="0 -8 560 396" role="img" aria-label="Top-down view of a house with a few spaced trees in the 30 metre ring and clear ground inside 10 metres. Embers from the same wildfire light one outer tree, the rest land on clear ground and go out, and the house is not reached.">
+                <rect class="fs-front" x="0" y="-8" width="130" height="396" fill="url(#fsFront)"/>
+                <rect class="fs-ring r30" x="118" y="17" width="364" height="346" rx="150" pathLength="1"/>
+                <rect class="fs-ring r10" x="218" y="117" width="164" height="146" rx="50" pathLength="1"/>
+                <rect class="fs-ring r1" x="260.5" y="159.5" width="79" height="61" rx="7.5" pathLength="1"/>
+                <text class="fs-lbl" x="300" y="9" text-anchor="middle">30 m</text>
+                <text class="fs-lbl" x="300" y="110" text-anchor="middle">10 m</text>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="38" cy="70" r="40"/><circle class="fs-can" cx="38" cy="70" r="22"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="84" cy="118" r="27"/><circle class="fs-can" cx="84" cy="118" r="14"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="66" cy="190" r="37"/><circle class="fs-can" cx="66" cy="190" r="20"/></g>
+                <g class="fs-tree wild"><circle class="fs-glow" cx="34" cy="300" r="40"/><circle class="fs-can" cx="34" cy="300" r="22"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="150" cy="275" r="18"/><circle class="fs-trunk" cx="150" cy="275" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="310" cy="52" r="17"/><circle class="fs-trunk" cx="310" cy="52" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="440" cy="120" r="16"/><circle class="fs-trunk" cx="440" cy="120" r="2.5"/></g>
+                <g class="fs-tree"><circle class="fs-can" cx="430" cy="290" r="18"/><circle class="fs-trunk" cx="430" cy="290" r="2.5"/></g>
+                <g class="fs-tree burn" style="--t:4.1s"><circle class="fs-glow" cx="160" cy="110" r="34"/><circle class="fs-can" cx="160" cy="110" r="18"/><circle class="fs-trunk" cx="160" cy="110" r="2.5"/></g>
+                <g class="fs-house">
+                  <rect class="fs-hbody" x="268" y="167" width="64" height="46" rx="2"/>
+                  <path class="fs-roof" d="M268 167L284 190L268 213M332 167L316 190L332 213M284 190H316"/>
+                </g>
+                <circle class="fs-ember" cx="66" cy="190" r="3" style="--t:2s;--dx:124px;--dy:12px"/>
+                <circle class="fs-ember" cx="84" cy="118" r="3" style="--t:2.7s;--dx:76px;--dy:-8px"/>
+                <circle class="fs-ember" cx="34" cy="300" r="3" style="--t:3.3s;--dx:170px;--dy:-52px"/>
+                <circle class="fs-ember" cx="38" cy="70" r="3" style="--t:3.9s;--dx:205px;--dy:8px"/>
+                <circle class="fs-ember" cx="160" cy="110" r="3" style="--t:5s;--dx:78px;--dy:42px"/>
+                <circle class="fs-ember" cx="66" cy="190" r="3" style="--t:5.6s;--dx:192px;--dy:6px"/>
+                <circle class="fs-ember" cx="160" cy="110" r="3" style="--t:6.3s;--dx:96px;--dy:-30px"/>
+              </svg>
+              <p class="fs-verdict">The fire runs out of fuel. This house scores low.</p>
+            </figure>
+          </div>
+          <ul class="fs-key">
+            <li><b>0–1.5 m</b>Non-combustible strip at the wall</li>
+            <li><b>1.5–10 m · Zone 1</b>Nothing that carries fire to the house</li>
+            <li><b>10–30 m · Zone 2</b>Thinned, spaced trees slow the fire down</li>
+          </ul>
+        </div>
+
         <div class="tiles mini">
           <div class="tile"><div class="tile-k">Houses scored</div><div class="tile-v"><span data-count="603">603</span></div></div>
           <div class="tile"><div class="tile-k">LiDAR tiles, 1 km</div><div class="tile-v"><span data-count="111">111</span></div></div>
@@ -246,7 +337,44 @@
           <summary>View the figures as a table</summary>
           <div id="lidarTable"></div>
         </details>
-        <p class="fine">Community-level summaries only. Property-level results are shared with the owner. LiDAR screens vegetation and terrain; it does not replace an on-site FireSmart assessment. Contains information licensed under the Open Government Licence – Ontario.</p>
+        <div class="fs-use">
+          <h4>From scores to fire prevention</h4>
+          <p>What is a home or cottage worth? On the 2018 assessment roll, the 365 homes and cottages in the Searchmont Local Services Board area were valued at <b>$36.4 million</b>. Add the vacant land, a ski resort, commercial properties and the community centre, and all 711 properties come to <b>$49.9 million</b>. A wildfire can take a home in an afternoon, and most of what protects it has to be done long before there is smoke in the air. This analysis has given the fire department a place to start that work.</p>
+          <ul>
+            <li><b>Who to visit first</b>The ranked scores set the order of visits, so the highest-hazard properties are approached first.</li>
+            <li><b>A conversation at each door</b>Each owner is shown their own result, and a detailed report with FireSmart steps for their property is left with them.</li>
+            <li><b>A message for the whole community</b>Where many houses score High or Extreme, social channels and promotions reinforce the one-to-one consultations.</li>
+          </ul>
+          <div class="fs-total" id="fsTotal">
+            <div class="fs-total-head">
+              <div class="tile-k">Assessed value at stake · 2018 roll</div>
+              <div class="fs-total-v">$<span id="fsTotalNum">49.9</span> million</div>
+              <div class="fs-total-sub">All 711 properties in the Searchmont Local Services Board area</div>
+            </div>
+            <div class="fs-total-bar" aria-hidden="true">
+              <i style="--w:36.4;--c:var(--s1)"></i><i style="--w:9.6;--c:var(--s3)"></i><i style="--w:2.9;--c:var(--s2)"></i><i style="--w:1;--c:var(--muted)"></i>
+            </div>
+            <div class="fs-total-parts">
+              <div class="fs-part" style="--c:var(--s1);--n:0">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6"/></svg>
+                <div><b>$36.4M</b><span>365 homes and cottages</span></div>
+              </div>
+              <div class="fs-part" style="--c:var(--s3);--n:1">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l5 7h-3l4 6H6l4-6H7zM12 16v5"/></svg>
+                <div><b>$9.6M</b><span>313 parcels of vacant land</span></div>
+              </div>
+              <div class="fs-part" style="--c:var(--s2);--n:2">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20l7-12 4 6 3-4 6 10zM7.2 11.5l1.8 1.7 1.6-1.4"/></svg>
+                <div><b>$2.9M</b><span>Ski resort, 3 parcels</span></div>
+              </div>
+              <div class="fs-part" style="--c:var(--muted);--n:3">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5h10v16M14 10h6v11M7 9h4M7 13h4M7 17h4M2 21h20"/></svg>
+                <div><b>$1.0M</b><span>30 commercial, community and other</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="fine">Community-level summaries only. Property-level results are shared with the owner. LiDAR screens vegetation and terrain; it does not replace an on-site FireSmart assessment. Assessed values are totals from the 2018 Searchmont Local Services Board assessment roll; they include land and are not market or replacement values. Contains information licensed under the Open Government Licence – Ontario.</p>
       </div>
 
       <div class="card dash atlas">

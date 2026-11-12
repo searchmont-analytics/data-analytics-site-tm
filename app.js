@@ -409,6 +409,36 @@
   once.observe($('#ratingBars')); once.observe($('#labChart')); once.observe($('#timeline'));
   $$('.tl-seg').forEach(function (el) { el.style.setProperty('--r', el.dataset.r); el.style.setProperty('--s', el.dataset.s); });
 
+  /* ---------- FireSmart banner: loop while on screen, with a pause control ---------- */
+  var fs = $('#fsBanner'), fsBtn = $('#fsToggle');
+  if (fs && fsBtn && !reduced) {
+    fsBtn.hidden = false;
+    fs.addEventListener('animationend', function (e) {
+      if (e.animationName !== 'fsClock') return;
+      fs.classList.remove('run'); void fs.offsetWidth; fs.classList.add('run');
+    });
+    new IntersectionObserver(function (es) {
+      es.forEach(function (en) { fs.classList.toggle('off', !en.isIntersecting); if (en.isIntersecting) fs.classList.add('run'); });
+    }, { threshold: 0.15 }).observe(fs);
+    fsBtn.addEventListener('click', function () {
+      var p = fs.classList.toggle('paused');
+      fsBtn.setAttribute('aria-pressed', p); fsBtn.textContent = p ? 'Play' : 'Pause';
+    });
+  }
+
+  /* ---------- FireSmart value tile: count up and build the bar once, when scrolled to ---------- */
+  var fsT = $('#fsTotal'), fsN = $('#fsTotalNum');
+  if (fsT && fsN && !reduced) {
+    new IntersectionObserver(function (es, ob) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return; ob.disconnect(); fsT.classList.add('in');
+        var end = +fsN.textContent, t0 = performance.now();
+        setTimeout(function () { fsN.textContent = end.toFixed(1); }, 1700);
+        (function tick(t) { var p = Math.min(1, (t - t0) / 1400); fsN.textContent = (end * (1 - Math.pow(1 - p, 3))).toFixed(1); if (p < 1 && t - t0 < 1650) requestAnimationFrame(tick); })(t0);
+      });
+    }, { threshold: 0.4 }).observe(fsT);
+  }
+
   /* ---------- motion: scroll reveal and cursor glow ---------- */
   if (!reduced) {
     var rv = new IntersectionObserver(function (es) {
