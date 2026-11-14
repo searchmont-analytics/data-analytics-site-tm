@@ -143,7 +143,7 @@ footer.fine a { color: var(--ink-2); }
   </header>
 
   <section class="stack">
-    <div class="eyebrow">Result · <span id="evalWindow"></span></div>
+    <div class="eyebrow">Result ·<span id="evalWindow"></span></div>
     <h2>Same detection rate, a fraction of the noise</h2>
     <div class="panel tablewrap"><table class="score" id="scoreboard"></table></div>
     <p class="muted prose" style="font-size:.9rem">An incident counts as caught if any of its days alerted. A false alert is an alert on a day with no incident, counted per metric across all 7 monitored metrics. Precision = alerted incident-days ÷ all alerts.</p>
@@ -238,6 +238,15 @@ footer.fine a { color: var(--ink-2); }
       <p><b>Feedback loop.</b> When an alert is triaged as a real incident, that day is removed from training, so a broken load never teaches the model that broken is normal. Missed incidents stay in, as they would in production.</p>
       <p><b>Rates don't need the model.</b> Validity rates like email nulls or bad postal codes aren't seasonal, so a z-score catches their incidents just as well. Use seasonal ML where the business has a rhythm (volumes, spend) and simple rules where it doesn't.</p>
     </div>
+  </section>
+
+  <section class="stack">
+    <div class="eyebrow">Video explainer</div>
+    <h2>Watch the case study</h2>
+    <div class="panel" style="padding:0;overflow:hidden;max-width:860px;aspect-ratio:16/9;background:#000">
+      <iframe src="https://www.youtube-nocookie.com/embed/GEnurh57Reo" title="Beyond the Z Score - Full Case Study Explainer" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width:100%;height:100%;border:0;display:block"></iframe>
+    </div>
+    <p class="muted prose" style="font-size:.9rem">A video walkthrough of this page: why the rolling z-score falls short, and how a machine learning model that learns each day's normal pattern does better.</p>
   </section>
 
   <section class="stack">
