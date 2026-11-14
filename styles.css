@@ -499,7 +499,7 @@ span[data-lens-text]:not([hidden]) { animation: fadein .5s; }
   .g3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 900px) {
-  .side { position: sticky; top: 0; inset: auto; width: auto; flex-direction: row; align-items: center; gap: 14px; padding: 8px 16px; border-right: 0; border-bottom: 1px solid var(--border); overflow: hidden; }
+  .side { position: sticky; inset: auto; top: 0; width: auto; flex-direction: row; align-items: center; gap: 14px; padding: 8px 16px; border-right: 0; border-bottom: 1px solid var(--border); overflow: hidden; }
   .side-foot, .brand small { display: none; }
   .brand-mark { width: 30px; height: 30px; padding: 6px 0; }
   .brand strong { white-space: nowrap; font-size: 14px; }

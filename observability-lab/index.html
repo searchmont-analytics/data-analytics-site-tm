@@ -127,29 +127,99 @@ footer.fine { border-top: 1px solid var(--grid); padding-top: 18px; font-size: .
 footer.fine a { color: var(--ink-2); }
 @media (max-width: 640px) { .hide-sm { display: none; } .panel { padding: 14px; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+/* portfolio sidebar */
+html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+.side { position: fixed; inset: 0 auto 0 0; width: 248px; padding: 22px 16px; background: var(--surface); border-right: 1px solid var(--ring); display: flex; flex-direction: column; gap: 22px; overflow-y: auto; z-index: 20; }
+.side a { text-decoration: none; }
+.brand { display: flex; gap: 12px; align-items: center; color: var(--ink); }
+.brand strong { display: block; font-size: 15px; line-height: 1.2; }
+.brand small { color: var(--muted); font-size: 12px; }
+.brand-mark { width: 36px; height: 36px; border-radius: 9px; background: var(--wash); border: 1px solid var(--ring); display: flex; align-items: flex-end; justify-content: center; gap: 3px; padding: 8px 0; flex: none; }
+.brand-mark i { width: 5px; border-radius: 2px; background: var(--ml); }
+.brand-mark i:nth-child(1) { height: 40%; } .brand-mark i:nth-child(2) { height: 70%; } .brand-mark i:nth-child(3) { height: 100%; background: var(--z2); }
+.back { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border: 1px solid var(--ring); border-radius: 8px; color: var(--ink); font-size: 14px; font-weight: 500; background: var(--bg); white-space: nowrap; }
+.back:hover { border-color: var(--ml); }
+.sidenav { display: flex; flex-direction: column; gap: 2px; }
+.sidenav a { display: flex; gap: 12px; align-items: baseline; padding: 8px 10px; border-radius: 8px; color: var(--ink-2); font-size: 14px; white-space: nowrap; transition: transform .18s, background .18s, color .18s; }
+.sidenav a span { font: 500 11px var(--f-mono); color: var(--muted); }
+.sidenav a:hover { background: var(--wash); color: var(--ink); transform: translateX(3px); }
+.sidenav a.is-here { color: var(--ink); font-weight: 600; }
+.sidenav a.is-here span { color: var(--ml); }
+.sub { display: flex; flex-direction: column; gap: 1px; margin: 2px 0 8px 17px; padding-left: 10px; border-left: 1px solid var(--axis); }
+.sub .sub-label { font: 500 10.5px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 6px 10px 4px; }
+.sub a { font-size: 13.5px; padding: 6px 10px; }
+.sub a.is-active { background: var(--wash); color: var(--ink); box-shadow: inset 2px 0 0 var(--ml); }
+.side a:focus-visible { outline: 2px solid var(--ml); outline-offset: 2px; }
+.side-foot { margin-top: auto; font-size: 12px; color: var(--muted); line-height: 1.7; }
+@media (min-width: 901px) { body { padding-left: calc(248px + clamp(16px, 3vw, 40px)); } }
+@media (max-width: 900px) {
+  html { scroll-padding-top: 64px; }
+  body { padding-top: 0; }
+  .side { position: sticky; inset: auto; top: 0; width: auto; margin: 0 -16px; flex-direction: row; align-items: center; gap: 12px; padding: 8px 16px; border-right: 0; border-bottom: 1px solid var(--ring); overflow: hidden; }
+  .brand span:last-child, .side-foot, .sidenav > a, .sub .sub-label { display: none; }
+  .brand-mark { width: 30px; height: 30px; padding: 6px 0; }
+  .back { padding: 6px 10px; font-size: 13.5px; }
+  .sidenav { min-width: 0; flex: 1; }
+  .sub { flex-direction: row; margin: 0; padding: 0; border: 0; overflow-x: auto; scrollbar-width: none; }
+  .sub::-webkit-scrollbar { display: none; }
+  .sub a.is-active { box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print { .side { display: none; } body { padding-left: 16px; } }
+
 </style>
 
 </head>
 <body>
+<aside class="side" aria-label="Portfolio">
+  <a class="brand" href="/">
+    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span><strong>Travis McCormack</strong><small>Data &amp; analytics portfolio</small></span>
+  </a>
+  <a class="back" href="/#lab">&larr; Back to portfolio</a>
+  <nav class="sidenav" aria-label="Portfolio sections">
+    <a href="/#overview"><span>01</span>Overview</a>
+    <a href="/#fit"><span>02</span>Role fit</a>
+    <a href="/#platforms"><span>03</span>Platforms &amp; data quality</a>
+    <a href="/#lab" class="is-here" aria-current="true"><span>04</span>Observability lab</a>
+    <div class="sub" id="subnav">
+      <div class="sub-label">Case study</div>
+      <a href="#top">Introduction</a>
+      <a href="#results">Results</a>
+      <a href="#why">Why not a z-score</a>
+      <a href="#explore">Explore the series</a>
+      <a href="#false-alerts">False alerts</a>
+      <a href="#incidents">Incidents</a>
+      <a href="#how">How it works</a>
+      <a href="#video">Video explainer</a>
+      <a href="#run">Run it</a>
+    </div>
+    <a href="/#projects"><span>05</span>Project dashboards</a>
+    <a href="/#leadership"><span>06</span>Leadership</a>
+    <a href="/#skills"><span>07</span>Skills &amp; education</a>
+    <a href="/#contact"><span>08</span>Contact</a>
+  </nav>
+  <div class="side-foot">Searchmont, Ontario<br>Toronto or Sault Ste. Marie, in office</div>
+</aside>
 <div class="wrap">
   <nav class="topnav" aria-label="Site">
-    <a href="/#lab">&larr; Back to portfolio</a>
+    <span></span>
     <div class="right"><a href="https://github.com/searchmont-analytics/zscore-vs-ml">Code on GitHub</a><button type="button" id="themeToggle">Light theme</button></div>
   </nav>
-  <header class="hero">
+  <header class="hero" id="top">
     <div class="eyebrow">Data observability · proof of concept · synthetic Ontario gaming data</div>
     <h1>Beyond the Z-Score</h1>
     <p class="lede prose">Casino play surges every Friday and Saturday, on long weekends, New Year's Eve and Super Bowl Sunday, and drops on Christmas Day. A rolling 30-day z-score can't tell that rhythm apart from a broken feed. This POC monitors a customer tombstone feed and daily play volumes over 26 months with 15 injected data-quality incidents, and compares the z-score against a model that learns what a normal day should look like.</p>
   </header>
 
-  <section class="stack">
+  <section class="stack" id="results">
     <div class="eyebrow">Result ·<span id="evalWindow"></span></div>
     <h2>Same detection rate, a fraction of the noise</h2>
     <div class="panel tablewrap"><table class="score" id="scoreboard"></table></div>
     <p class="muted prose" style="font-size:.9rem">An incident counts as caught if any of its days alerted. A false alert is an alert on a day with no incident, counted per metric across all 7 monitored metrics. Precision = alerted incident-days ÷ all alerts.</p>
   </section>
 
-  <section class="stack">
+  <section class="stack" id="why">
     <div class="eyebrow">Why a z-score was not enough</div>
     <h2>The baseline has no idea what day it is</h2>
     <div class="prose stack ink2">
@@ -162,7 +232,7 @@ footer.fine a { color: var(--ink-2); }
     </div>
   </section>
 
-  <section class="stack">
+  <section class="stack" id="explore">
     <div class="eyebrow">Explore the series</div>
     <h2>Expected-value band vs. what actually landed</h2>
     <div class="panel">
@@ -198,7 +268,7 @@ footer.fine a { color: var(--ink-2); }
     <p class="muted prose" style="font-size:.9rem">Try <b>Second winter</b> on activity records. The ML band dips for Christmas Day and jumps for New Year's Eve, so the truncated New Year's Eve feed falls outside it. Switch to <b>30-day z</b> and the same night sits comfortably inside a band that's too wide to mean anything.</p>
   </section>
 
-  <section class="stack">
+  <section class="stack" id="false-alerts">
     <div class="eyebrow">Where false alerts land</div>
     <h2>Calendar days stop being alarms</h2>
     <div class="two">
@@ -218,14 +288,14 @@ footer.fine a { color: var(--ink-2); }
     </div>
   </section>
 
-  <section class="stack">
+  <section class="stack" id="incidents">
     <div class="eyebrow">Ground truth</div>
     <h2>The 15 injected incidents</h2>
     <div class="panel tablewrap"><table class="inc" id="inc"></table></div>
     <div class="prose callout ink2"><p><b>What the ML still misses.</b> It misses three spend dips of about 30% on holiday weekends, where spend itself swings ±8% day to day. For two of them, the record-volume signal for the same incident was caught, so the incident still surfaced. Victoria Day spend (incident 3) slipped past every detector. The answer there is a reconciliation rule (spend per record within a range), not a looser anomaly threshold.</p></div>
   </section>
 
-  <section class="stack">
+  <section class="stack" id="how">
     <div class="eyebrow">How it works</div>
     <h2>Predict the day, then judge the gap</h2>
     <div class="flow">
@@ -240,7 +310,7 @@ footer.fine a { color: var(--ink-2); }
     </div>
   </section>
 
-  <section class="stack">
+  <section class="stack" id="video">
     <div class="eyebrow">Video explainer</div>
     <h2>Watch the case study</h2>
     <div class="panel" style="padding:0;overflow:hidden;max-width:860px;aspect-ratio:16/9;background:#000">
@@ -249,7 +319,7 @@ footer.fine a { color: var(--ink-2); }
     <p class="muted prose" style="font-size:.9rem">A video walkthrough of this page: why the rolling z-score falls short, and how a machine learning model that learns each day's normal pattern does better.</p>
   </section>
 
-  <section class="stack">
+  <section class="stack" id="run">
     <div class="eyebrow">Run it</div>
     <h2>Reproduce the POC</h2>
     <pre>python3 -m venv .venv &amp;&amp; .venv/bin/pip install -r requirements.txt
@@ -505,5 +575,22 @@ new MutationObserver(() => { drawMain(); drawQ(); }).observe(document.documentEl
 })();
 </script>
 <!-- Cloudflare Web Analytics (same site token as the portfolio home page) --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7ad015eac36449c68d153866f3f50313"}'></script><!-- End Cloudflare Web Analytics -->
+<script>
+(function () {
+  var links = [].slice.call(document.querySelectorAll('#subnav a'));
+  var sub = document.getElementById('subnav');
+  var spy = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + en.target.id;
+        a.classList.toggle('is-active', on);
+        if (on && window.innerWidth <= 900) sub.scrollTo({ left: a.offsetLeft - sub.offsetLeft - 12, behavior: 'smooth' });
+      });
+    });
+  }, { rootMargin: '-25% 0px -65% 0px' });
+  [].forEach.call(document.querySelectorAll('#top, section.stack[id]'), function (el) { spy.observe(el); });
+})();
+</script>
 </body>
 </html>
