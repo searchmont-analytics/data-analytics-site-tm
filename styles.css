@@ -548,6 +548,19 @@ span[data-lens-text]:not([hidden]) { animation: fadein .5s; }
 :root[data-theme="light"] .nav a.nav-game, :root[data-theme="light"] .btn.btn-game { color: #0369a1; }
 :root[data-theme="light"] .btn.btn-game { border-color: #0369a1; }
 
+/* ---------- education ---------- */
+.edu { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 12px; }
+.edu li { display: flex; gap: 14px; align-items: flex-start; padding: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); transition: transform .18s, border-color .18s; }
+.edu li:hover { transform: translateX(3px); border-color: var(--accent); }
+.edu-logo { flex: none; width: 52px; height: 52px; border-radius: 10px; display: grid; place-items: center; overflow: hidden; background: var(--accent-wash); color: var(--accent-ink); border: 1px solid var(--border); font: 700 15px var(--mono); letter-spacing: .04em; }
+.edu-logo.alt { background: var(--page); color: var(--ink-2); }
+.edu-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; background: #fff; }
+.edu-body { display: grid; gap: 4px; min-width: 0; }
+.edu-meta { margin: 0; font: 500 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.edu-body b { font-weight: 600; line-height: 1.35; }
+.edu-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+@media (prefers-reduced-motion: reduce) { .edu li:hover { transform: none; } }
+
 .hashtag { color: var(--accent-ink); font-weight: 550; white-space: nowrap; }
 .game-ad-card { background: #080c14; border: 2px solid #1e293b; border-radius: 14px; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.12); transition: all 0.25s ease; text-decoration: none; color: #e2e8f0; margin-top: 8px; }
 :root[data-theme="light"] .game-ad-card { background: #0d131f; border-color: #334155; box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18), 0 0 20px rgba(56, 189, 248, 0.15); }
