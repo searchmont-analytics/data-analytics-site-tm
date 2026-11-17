@@ -476,3 +476,145 @@
     }, { passive: true });
   }
 })();
+
+/* ---------- Ingestion Protocol game banner ---------- */
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var card = document.getElementById('portfolioGameAd');
+  if (!card) return;
+
+  // 1. Falling data-quality tokens behind the banner (runs only while on screen)
+  var canvas = document.getElementById('portfolioGameCanvas');
+  if (canvas && !reduced) {
+    var ctx = canvas.getContext('2d');
+    var tokens = ['NULL', 'DIRTY_ROW', 'REGEX_FAIL', 'PII_LEAK', 'SSN_DETECTED', 'SCHEMA_DRIFT', 'MDM_CLASH', '0x00_CORRUPT'];
+    var drops = [], visible = false, raf = 0, last = 0;
+    var resize = function () {
+      canvas.width = card.offsetWidth; canvas.height = card.offsetHeight;
+      var n = Math.ceil(canvas.width / 90);
+      while (drops.length < n) drops.push(Math.random() * -100);
+      drops.length = n;
+    };
+    var draw = function (ts) {
+      raf = visible ? requestAnimationFrame(draw) : 0;
+      if (ts - last < 33) return;
+      last = ts;
+      ctx.fillStyle = 'rgba(8, 12, 20, 0.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ff88';
+      ctx.font = '10px monospace';
+      for (var i = 0; i < drops.length; i++) {
+        ctx.fillText(tokens[Math.floor(Math.random() * tokens.length)], i * 90, drops[i]);
+        drops[i] += 8;
+        if (drops[i] > canvas.height && Math.random() > 0.96) drops[i] = 0;
+      }
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    new IntersectionObserver(function (es) {
+      visible = es[0].isIntersecting && !document.hidden;
+      if (visible && !raf) raf = requestAnimationFrame(draw);
+    }).observe(card);
+  }
+
+  // 2. Cycling alert taglines
+  var lines = [
+    '[!] 42 LEGACY MAINFRAMES BURNING',
+    '[!] DIRTY DATA HAS BREACHED THE BUFFER',
+    '[!] CAN YOU DEFEND THE GOLDEN RECORD?',
+    '[!] UNMASKED PII LEAKS DETECTED IN NOTES',
+    '[!] THE AUDITORS ARE AT THE GATES'
+  ];
+  var idx = 0, tag = document.getElementById('gameAdTagline');
+  if (tag && !reduced) {
+    setInterval(function () {
+      idx = (idx + 1) % lines.length;
+      tag.style.opacity = '0';
+      setTimeout(function () { tag.textContent = lines[idx]; tag.style.opacity = '1'; }, 200);
+    }, 3200);
+  }
+
+  // 3. Sound preview (off until the visitor turns it on) and auto-mute
+  var actx = null, on = false, timer = null, droneGain = null, drone = null;
+  var btn = document.getElementById('gameAdSoundBtn');
+  var icon = document.getElementById('gameAdSoundIcon');
+  var label = document.getElementById('gameAdSoundLabel');
+
+  function setUi(state) {
+    if (!btn) return;
+    btn.classList.toggle('active', state);
+    btn.setAttribute('aria-pressed', state ? 'true' : 'false');
+    icon.textContent = state ? '🔊' : '🔇';
+    label.textContent = state ? 'SOUND ON' : 'SOUND OFF';
+  }
+
+  function startAudio() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    if (!actx) actx = new AC();
+    if (actx.state === 'suspended') actx.resume();
+
+    var now = actx.currentTime;
+    var osc = actx.createOscillator(), filter = actx.createBiquadFilter();
+    droneGain = actx.createGain();
+    osc.type = 'sawtooth'; osc.frequency.setValueAtTime(55, now);
+    filter.type = 'lowpass'; filter.frequency.setValueAtTime(140, now);
+    droneGain.gain.setValueAtTime(0.01, now);
+    droneGain.gain.linearRampToValueAtTime(0.18, now + 1.5);
+    osc.connect(filter); filter.connect(droneGain); droneGain.connect(actx.destination);
+    osc.start(now);
+    drone = osc;
+
+    var step = 0;
+    timer = setInterval(function () {
+      if (!on) return;
+      if (step++ % 2) return;
+      var t = actx.currentTime, k = actx.createOscillator(), g = actx.createGain();
+      k.type = 'sine';
+      k.frequency.setValueAtTime(110, t);
+      k.frequency.exponentialRampToValueAtTime(32, t + 0.12);
+      g.gain.setValueAtTime(0.3, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.16);
+      k.connect(g); g.connect(actx.destination);
+      k.start(t); k.stop(t + 0.18);
+    }, 280);
+  }
+
+  function stopAudio() {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    if (timer) { clearInterval(timer); timer = null; }
+    if (droneGain && actx) {
+      var g = droneGain, d = drone;
+      droneGain = null; drone = null;
+      g.gain.cancelScheduledValues(actx.currentTime);
+      g.gain.setValueAtTime(g.gain.value, actx.currentTime);
+      g.gain.linearRampToValueAtTime(0.001, actx.currentTime + 0.4);
+      setTimeout(function () { try { d.stop(); } catch (err) {} }, 500);
+    }
+  }
+
+  function speak() {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    var utt = new SpeechSynthesisUtterance('Alert. Ingestion Gatekeeper online. Can you stop dirty data from corrupting the lakehouse? Take your post.');
+    utt.rate = 1.0; utt.pitch = 0.88;
+    var voice = window.speechSynthesis.getVoices().filter(function (v) {
+      return v.lang.indexOf('en') === 0 && /David|Natural|Google/.test(v.name);
+    })[0];
+    if (voice) utt.voice = voice;
+    window.speechSynthesis.speak(utt);
+  }
+
+  function turnOff() { if (on) { on = false; setUi(false); stopAudio(); } }
+
+  if (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      if (on) { turnOff(); return; }
+      on = true; setUi(true); startAudio(); speak();
+    });
+  }
+  // Silence the preview when the visitor opens the game or leaves the tab
+  card.addEventListener('click', function (e) { if (!e.target.closest('#gameAdSoundBtn')) turnOff(); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) turnOff(); });
+})();

@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://data-analytics-travis-mccormack.com/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1a19'/%3E%3Crect x='7' y='17' width='4' height='8' rx='1.5' fill='%233987e5'/%3E%3Crect x='14' y='11' width='4' height='14' rx='1.5' fill='%233987e5'/%3E%3Crect x='21' y='7' width='4' height='18' rx='1.5' fill='%23199e70'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=7">
 <script>
   try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -27,11 +27,12 @@
     <a href="#overview" class="is-active"><span>01</span>Overview</a>
     <a href="#fit"><span>02</span>Role fit</a>
     <a href="#platforms"><span>03</span>Platforms &amp; data quality</a>
-    <a href="#lab"><span>04</span>Observability lab</a>
-    <a href="#projects"><span>05</span>Project dashboards</a>
-    <a href="#leadership"><span>06</span>Leadership</a>
-    <a href="#skills"><span>07</span>Skills &amp; education</a>
-    <a href="#contact"><span>08</span>Contact</a>
+    <a href="#game" class="nav-game"><span>04</span>Interactive game</a>
+    <a href="#lab"><span>05</span>Observability lab</a>
+    <a href="#projects"><span>06</span>Project dashboards</a>
+    <a href="#leadership"><span>07</span>Leadership</a>
+    <a href="#skills"><span>08</span>Skills &amp; education</a>
+    <a href="#contact"><span>09</span>Contact</a>
   </nav>
   <div class="side-foot">
     <span class="dot" aria-hidden="true"></span> Searchmont, Ontario<br>
@@ -67,6 +68,7 @@
       <div class="cta">
         <a class="btn primary" href="#fit">See the role fit</a>
         <a class="btn" href="#projects">Open the project dashboards</a>
+        <a class="btn btn-game" href="#game"><span aria-hidden="true">🎮&nbsp;</span>Play Ingestion Protocol</a>
       </div>
       <p class="context">This site supports my applications to OLG for
         <span data-lens-text="tech">Senior Manager, Data &amp; AI Technology (R26_00659)</span><span data-lens-text="analytics" hidden>Data &amp; Analytics Manager (R26_00672)</span>.
@@ -152,10 +154,58 @@
       </div>
     </section>
 
-    <!-- 04 LAB -->
+    <!-- 04 GAME -->
+    <section id="game">
+      <div class="sec-head">
+        <p class="eyebrow">04 · Interactive game</p>
+        <h2>Experience the Ingestion Gatekeeper</h2>
+        <p class="sub">I turned the real-world challenge of master data management, schema drift, and data steward triage into a playable retro-cyberpunk simulation. Can you protect the Golden Record? <span class="hashtag">#gamified-data-governance</span> <span class="hashtag">#sound-on</span></p>
+      </div>
+
+      <a class="game-ad-card" id="portfolioGameAd" href="https://searchmont-analytics.github.io/dq_games/" target="_blank" rel="noopener noreferrer">
+        <canvas class="game-ad-canvas" id="portfolioGameCanvas" aria-hidden="true"></canvas>
+        <div class="game-ad-scanlines" aria-hidden="true"></div>
+
+        <div class="game-ad-toolbar">
+          <div class="game-ad-badge">
+            <span class="game-ad-dot"></span>
+            <span>FEATURED INTERACTIVE PROJECT</span>
+          </div>
+
+          <button type="button" class="game-ad-sound-btn" id="gameAdSoundBtn" aria-pressed="false">
+            <span id="gameAdSoundIcon" aria-hidden="true">🔇</span>
+            <span id="gameAdSoundLabel">SOUND OFF</span>
+          </button>
+        </div>
+
+        <div class="game-ad-body">
+          <div class="game-ad-info">
+            <div class="game-ad-title">
+              <span>[ INGESTION PROTOCOL ]</span>
+            </div>
+            <div class="game-ad-tagline" id="gameAdTagline">
+              [!] 42 LEGACY MAINFRAMES BURNING
+            </div>
+            <p class="game-ad-desc">
+              You are the Lead Data Steward standing between raw, messy upstream feeds and the Enterprise Data Lakehouse. Catch NULL keys, detect MDM master record collisions, and quarantine unmasked PII before downstream BI collapses.
+            </p>
+          </div>
+
+          <div class="game-ad-action">
+            <div class="game-ad-play-btn">
+              <span>PLAY IN BROWSER</span>
+              <span>&rarr;</span>
+            </div>
+            <span class="game-ad-hint">Zero install &bull; Procedural audio</span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <!-- 05 LAB -->
     <section id="lab">
       <div class="sec-head">
-        <p class="eyebrow">04 · Observability lab</p>
+        <p class="eyebrow">05 · Observability lab</p>
         <h2>Why a z-score was not enough</h2>
         <p class="sub">At OLG I built drift detection against a 30-day rolling baseline, then set up a machine learning model that learned weekend and holiday patterns where z-scores raised false alerts. This demo recreates the idea on simulated data. Switch the method and move the threshold.</p>
       </div>
@@ -197,10 +247,10 @@
       </div>
     </section>
 
-    <!-- 05 PROJECTS -->
+    <!-- 06 PROJECTS -->
     <section id="projects">
       <div class="sec-head">
-        <p class="eyebrow">05 · Project dashboards</p>
+        <p class="eyebrow">06 · Project dashboards</p>
         <h2>Analytics I built for my own community</h2>
         <p class="sub">Two open-data projects for the Searchmont fire response area, built in Python and JavaScript. The figures below are real results from the 2024 run.</p>
       </div>
@@ -417,10 +467,10 @@
       </div>
     </section>
 
-    <!-- 06 LEADERSHIP -->
+    <!-- 07 LEADERSHIP -->
     <section id="leadership">
       <div class="sec-head">
-        <p class="eyebrow">06 · Leadership</p>
+        <p class="eyebrow">07 · Leadership</p>
         <h2>Leading people, at work and in the community</h2>
         <p class="sub">My people leadership ran alongside my OLG career for three decades. Hover or tap a bar for detail.</p>
       </div>
@@ -477,10 +527,10 @@
       <p class="more">More on the fire service work: <a href="https://travis-mccormack-emergency-service.com/" target="_blank" rel="noopener">travis-mccormack-emergency-service.com</a></p>
     </section>
 
-    <!-- 07 SKILLS -->
+    <!-- 08 SKILLS -->
     <section id="skills">
       <div class="sec-head">
-        <p class="eyebrow">07 · Skills &amp; education</p>
+        <p class="eyebrow">08 · Skills &amp; education</p>
         <h2>Tools, methods and training</h2>
       </div>
       <div class="filters">
@@ -509,10 +559,10 @@
       </div>
     </section>
 
-    <!-- 08 CONTACT -->
+    <!-- 09 CONTACT -->
     <section id="contact">
       <div class="sec-head">
-        <p class="eyebrow">08 · Contact</p>
+        <p class="eyebrow">09 · Contact</p>
         <h2>Let's talk about the role</h2>
         <p class="sub">Choose what you need and I'll reply directly. References are available on request.</p>
       </div>
@@ -549,7 +599,7 @@
 </div>
 
 <div class="tip" id="tip" role="tooltip" hidden></div>
-<script src="app.js?v=4"></script>
+<script src="app.js?v=5"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7ad015eac36449c68d153866f3f50313"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
